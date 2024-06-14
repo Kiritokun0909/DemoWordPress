@@ -11,12 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Create .env
-        run: |
-          echo 'DB_NAME=wordpress' >> .env
-          echo 'DB_USER=wpuser' >> .env
-          echo 'DB_PASSWORD=password' >> .env
-          echo 'DB_ROOT_PASSWORD=root_password' >> .env
-
+        run: echo 'DB_NAME=${{ secrets.DB_NAME }}' > .env
+          echo 'DB_USER=${{ secrets.DB_USER }}' > .env
+          echo 'DB_PASSWORD=${{ secrets.DB_PASSWORD }}' > .env
+          echo 'DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}' > .env
 
       - name: Build Docker
-        run: docker compose up --build -d 
+        run: docker-compose up --build -d
