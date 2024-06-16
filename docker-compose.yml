@@ -35,7 +35,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      # - wordpress_data:/var/www/html
+      - wordpress_data:/var/www/html
 
 volumes:
   wordpress_data:
