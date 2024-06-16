@@ -1,0 +1,36 @@
+name: CI/CD project
+
+on:
+  push: [main]
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout mã nguồn từ repository
+    # Xem thêm tại: https://github.com/actions/checkout
+    - uses: actions/checkout@v4
+
+    # Composer cho phép cài đặt các dependencies của project trên Github Actions
+    - name: Validate Composer files
+      uses: docker://composer:1.9.0
+      with:
+        args: validate
+
+    # Cài đặt các dependencies của project
+    # Sử dụng Docker để chạy composer
+    - name: Install Dependencies
+      uses: docker://composer:1.9.0
+      with:
+        args: install
+
+    # Chạy các tests
+    - name: Run Tests
+    # Trong quá trình khởi tạo website, ta có sử dụng lệnh "docker-compose up" trên Terminal
+    # Nên tương tự trên Github Actions, ta cũng cho chạy các lệnh đó trên Github Actions để kiểm tra
+    # docker-compose up -d để chạy các services trong docker-compose.yml
+    # -d để chạy ở chế độ daemon (background) tránh Github Actions chạy mãi không dừng
+      run: |
+        docker-compose up -d
+

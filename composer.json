@@ -1,0 +1,30 @@
+{
+    "name": "vendor/myproject",
+    "description": "My project",
+    "require": {
+        "php": "^7.4",
+        "ext-json": "*"
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        }
+    },
+    "extra": {
+        "github": {
+            "actions": {
+                "check-docker": {
+                    "runs": {
+                        "using": "composite",
+                        "steps": [
+                            {
+                                "name": "Check Docker",
+                                "run": "docker --version"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
